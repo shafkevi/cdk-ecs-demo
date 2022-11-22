@@ -111,11 +111,11 @@ export default class FargateStack extends Stack {
     });
 
 
-    // const pipeline = new Pipeline(this, `Pipeline-${id}`, {
-    //   branch: 'main',
-    //   repoName: 'cdk-ecs-demo',
-    //   fargateService: loadBalancedFargateService.service,
-    // });
+    const pipeline = new Pipeline(this, `Pipeline-${id}`, {
+      branch: 'main',
+      repoName: 'cdk-ecs-demo',
+      fargateService: loadBalancedFargateService.service,
+  });
 
 
   }

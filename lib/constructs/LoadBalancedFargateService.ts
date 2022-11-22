@@ -35,6 +35,7 @@ export default class LoadBalancedFargateService extends Construct {
 
     this.loadBalancedFargateService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, `LoadBalancedFargateService`, {
       assignPublicIp: true,
+      enableExecuteCommand: true,
       cluster: cluster,
       cpu: cpu ?? 256,
       desiredCount: desiredCount ?? 1,

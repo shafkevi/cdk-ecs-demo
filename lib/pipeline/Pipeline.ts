@@ -27,6 +27,9 @@ export default class Pipeline extends Construct {
     const ecrRepository = new ecr.Repository(this, `CodeRepository`);
 
     const codebuildProject = new codebuild.PipelineProject(this, `CodeBuildPipelineProject`, {
+      environment: {
+        privileged: true,
+      },
       buildSpec: codebuild.BuildSpec.fromObject({
         version: "0.2",
         phases: {
@@ -43,7 +46,9 @@ export default class Pipeline extends Construct {
                   "docker push $REPOSITORY_URI:latest",
                   "docker push $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION",
                   "export imageTag=$CODEBUILD_RESOLVED_SOURCE_VERSION",
-                  "printf '[{\"name\":\"app\",\"imageUri\":\"%s\"}]' $REPOSITORY_URI:$imageTag > imagedefinitions.json"
+                  "printf '[{\"name\":\"app\",\"imageUri\":\"%s\"}]' $REPOSITORY_URI:$imageTag > imagedefinitions.json",
+                  "pwd",
+                  "ls",
               ]
           }
       },
@@ -52,10 +57,10 @@ export default class Pipeline extends Construct {
            "exported-variables": ["imageTag"]
       },
       artifacts: {
-          files: "imagedefinitions.json",
+          files: "src/ecs/imagedefinitions.json",
           "secondary-artifacts": {
               "imagedefinitions": {
-                  "files": "imagedefinitions.json",
+                  "files": "src/ecs/imagedefinitions.json",
                   "name": "imagedefinitions"
               }
           }
@@ -73,8 +78,9 @@ export default class Pipeline extends Construct {
       actionName: 'GithubCommit',
       repo: repoName,
       oauthToken: SecretValue.secretsManager('githubToken'),
+      // oauthToken: process.env.GITHUB_TOKEN || '',
       output: sourceOutput,
-      owner: 'prod', // company name?
+      owner: 'shafkevi', // repo owner name (shafkevi for https://github.com/shafkevi/cdk-ecs-demo)
       branch: branch,
     });
 
