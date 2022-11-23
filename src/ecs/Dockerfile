@@ -5,7 +5,7 @@ FROM public.ecr.aws/bitnami/node:14
 WORKDIR /usr/src/app
 
 # copy the dependencies file to the working directory
-COPY package*.json ./
+COPY package*.json server.js ./
 
 # install dependencies
 RUN npm install
