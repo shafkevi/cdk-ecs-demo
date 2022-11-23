@@ -2,10 +2,10 @@
 FROM public.ecr.aws/bitnami/node:14
 
 # set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /usr/src/web
 
 # copy the dependencies file to the working directory
-COPY package*.json server.js ./
+COPY package*.json  ./
 
 # install dependencies
 RUN npm install
