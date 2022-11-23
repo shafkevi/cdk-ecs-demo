@@ -1,5 +1,4 @@
 'use strict';
-console.log('ENV',process.env);
 const express = require('express');
 const { Pool, Client } = require("pg");
 const cors = require('cors');
