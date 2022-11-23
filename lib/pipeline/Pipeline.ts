@@ -25,6 +25,7 @@ export default class Pipeline extends Construct {
     } = props;
 
     const ecrRepository = new ecr.Repository(this, `CodeRepository`);
+    ecrRepository.grantPull(fargateService.taskDefinition.taskRole);
 
     const codebuildProject = new codebuild.PipelineProject(this, `CodeBuildPipelineProject`, {
       environment: {
