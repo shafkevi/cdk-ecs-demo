@@ -7,11 +7,11 @@ WORKDIR /usr/src/web
 # copy the dependencies file to the working directory
 COPY package*.json  ./
 
-# copy app source to the working directory
-COPY . .
-
 # install dependencies
 RUN npm install
+
+# copy app source to the working directory
+COPY . .
 
 # https://docs.docker.com/engine/reference/builder/#expose
 EXPOSE 8080
