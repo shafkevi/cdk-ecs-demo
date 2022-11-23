@@ -1,12 +1,16 @@
 # set base image
 FROM public.ecr.aws/bitnami/node:14
 
+RUN ls
+RUN pwd
 # set the working directory in the container
 WORKDIR /usr/src/web
 
+RUN ls
+RUN pwd
 # copy the dependencies file to the working directory
 COPY package*.json  ./
-
+RUN ls
 # install dependencies
 RUN npm install
 
