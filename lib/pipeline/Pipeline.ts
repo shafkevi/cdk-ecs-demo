@@ -46,7 +46,7 @@ export default class Pipeline extends Construct {
                   "docker push $REPOSITORY_URI:latest",
                   "docker push $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION",
                   "export imageTag=$CODEBUILD_RESOLVED_SOURCE_VERSION",
-                  "printf '[{\"name\":\"app\",\"imageUri\":\"%s\"}]' $REPOSITORY_URI:$imageTag > imagedefinitions.json",
+                  "printf '[{\"name\":\"app\",\"imageUri\":\"%s\"}]' $REPOSITORY_URI:$imageTag > ../../imagedefinitions.json",
                   "pwd",
                   "ls",
               ]
@@ -57,10 +57,10 @@ export default class Pipeline extends Construct {
            "exported-variables": ["imageTag"]
       },
       artifacts: {
-          files: "src/ecs/imagedefinitions.json",
+          files: "imagedefinitions.json",
           "secondary-artifacts": {
               "imagedefinitions": {
-                  "files": "src/ecs/imagedefinitions.json",
+                  "files": "imagedefinitions.json",
                   "name": "imagedefinitions"
               }
           }
