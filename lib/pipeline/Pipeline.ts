@@ -46,6 +46,7 @@ export default class Pipeline extends Construct {
                   "docker push $REPOSITORY_URI:latest",
                   "docker push $REPOSITORY_URI:$CODEBUILD_RESOLVED_SOURCE_VERSION",
                   "export imageTag=$CODEBUILD_RESOLVED_SOURCE_VERSION",
+                  // Name here must match the task Definition defined in FargateService
                   "printf '[{\"name\":\"web\",\"imageUri\":\"%s\"}]' $REPOSITORY_URI:$imageTag > ../../imagedefinitions.json",
                   "pwd",
                   "ls",
