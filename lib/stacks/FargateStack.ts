@@ -115,6 +115,7 @@ export default class FargateStack extends Stack {
       branch: 'main',
       repoName: 'cdk-ecs-demo',
       fargateService: loadBalancedFargateService.service,
+      taskDefinition: loadBalancedFargateService.taskDefinition,
   });
 
 

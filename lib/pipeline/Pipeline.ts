@@ -11,6 +11,7 @@ export interface PipelineProps {
   branch: string,
   repoName: string,
   fargateService: ecs.FargateService,
+  taskDefinition: ecs.TaskDefinition,
 }
 
 export default class Pipeline extends Construct {
@@ -21,11 +22,12 @@ export default class Pipeline extends Construct {
     const { 
       branch,
       repoName,
-      fargateService
+      fargateService,
+      taskDefinition
     } = props;
 
     const ecrRepository = new ecr.Repository(this, `CodeRepository`);
-    ecrRepository.grantPull(fargateService.taskDefinition.taskRole);
+    ecrRepository.grantPull(taskDefinition.executionRole!);
 
     const codebuildProject = new codebuild.PipelineProject(this, `CodeBuildPipelineProject`, {
       environment: {
